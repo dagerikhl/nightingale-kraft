@@ -1,0 +1,27 @@
+{
+  "name": "nightingale-kraft",
+  "description": "Planning crafting materials in Nightingale game",
+  "version": "1.0.0",
+  "license": "GPL-3.0",
+  "author": "Dag Erik Homdrum Løvgren <dagerikhl@gmail.com> (https://github.com/dagerikhl)",
+  "type": "module",
+  "main": "src/main.ts",
+  "scripts": {
+    "prepare": "husky",
+    "start": "npx tsx src/main.ts",
+    "dev": "nodemon --exec \"npx tsx src/main.ts \" --watch src/ -e js,md,ts",
+    "format": "prettier .",
+    "format:fix": "prettier . --write"
+  },
+  "dependencies": {
+    "ts-node": "10.9.2",
+    "typescript": "5.7.3"
+  },
+  "devDependencies": {
+    "husky": "9.1.7",
+    "lint-staged": "15.4.3",
+    "nodemon": "3.1.9",
+    "prettier": "3.5.2",
+    "tsx": "4.19.2"
+  }
+}
