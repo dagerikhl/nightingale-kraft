@@ -42,7 +42,7 @@ const main = () => {
     console.log(formatMatTree(matTree));
 
     const mats = sortMats(getMatsFromMatTree(matTree));
-    console.log(` All materials:\n${formatMats(mats)}`);
+    console.log(` All materials:\n${formatMats(mats, [recipeName])}`);
 
     for (const [mat, amount] of Object.entries(mats) as [IMaterial, number][]) {
       allMats[mat] = (allMats[mat] ?? 0) + amount;
@@ -51,7 +51,7 @@ const main = () => {
 
   const allMatsSorted = sortMats(allMats);
   console.log(
-    `\n All materials for all recipes:\n${formatMats(allMatsSorted)}`,
+    `\n All materials for all recipes:\n${formatMats(allMatsSorted, recipeNames)}`,
   );
 };
 
