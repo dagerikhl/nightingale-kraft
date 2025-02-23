@@ -1,5 +1,6 @@
 import c from "chalk";
-import { IMats, IMatTree } from "../crafting/crafting";
+import { getObjectEntries } from "../../common/utils/objects";
+import { IMats, IMatsItem, IMatTree } from "../crafting/crafting";
 import { getMeta } from "../meta/meta";
 import { IMaterial, IMaterialNonRaw, RECIPES } from "../recipes/recipes";
 
@@ -53,25 +54,26 @@ export const formatMaterial = (
   return str;
 };
 
-export const formatMatTree = (matTree: IMatTree, depth = 0): string => {
+export const formatMatTree = (matTree: IMatTree): string => {
   const strs: string[] = [];
 
   if (matTree.ingredients) {
-    for (const [ingredient, ingredientTree] of Object.entries(
-      matTree.ingredients,
-    ) as [IMaterial, IMatTree][]) {
+    for (const [ingredient, ingredientTree] of getObjectEntries<
+      IMaterial,
+      IMatTree
+    >(matTree.ingredients)) {
       let formattedIngredient = formatMaterial(
         ingredient,
         ingredientTree.amount,
-        depth + 1,
+        ingredientTree.level,
       );
-      if (depth === 0) {
+      if (ingredientTree.level === 1) {
         formattedIngredient = c.cyan(formattedIngredient);
       }
       strs.push(formattedIngredient);
 
       if (ingredientTree.ingredients) {
-        strs.push(formatMatTree(ingredientTree, depth + 1));
+        strs.push(formatMatTree(ingredientTree));
       }
     }
   }
@@ -90,10 +92,14 @@ export const formatMats = (
 
   const strs: string[] = [];
 
-  for (const [mat, amount] of Object.entries(mats) as [IMaterial, number][]) {
-    let formattedMat = formatMaterial(mat, amount, 1);
+  for (const [mat, item] of getObjectEntries<IMaterial, IMatsItem>(mats)) {
+    let formattedMat = formatMaterial(mat, item.amount, 1);
     if (originalIngredients?.includes(mat)) {
-      formattedMat = c.cyan(formattedMat);
+      if (item.levels.size > 1) {
+        formattedMat = c.cyanBright(formattedMat);
+      } else {
+        formattedMat = c.cyan(formattedMat);
+      }
     }
     strs.push(formattedMat);
   }

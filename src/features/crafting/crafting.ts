@@ -1,25 +1,29 @@
 import { IPartialRecord } from "../../common/types/IPartialRecord";
+import { getObjectEntries } from "../../common/utils/objects";
 import { checkIsNonRaw, getMeta } from "../meta/meta";
 import { IMaterial, RECIPES } from "../recipes/recipes";
 
 export interface IMatTree {
+  level: number;
   amount: number;
   ingredients?: IPartialRecord<IMaterial, IMatTree>;
 }
 
-export const getMatTree = (mat: IMaterial, amount = 1): IMatTree => {
-  const tree: IMatTree = { amount };
+export const getMatTree = (mat: IMaterial, amount = 1, level = 0): IMatTree => {
+  const tree: IMatTree = { level, amount };
 
   if (checkIsNonRaw(mat)) {
     const ingredients = RECIPES[mat];
 
     tree.ingredients = {};
-    for (const [ingredient, ingredientAmount] of Object.entries(
-      ingredients,
-    ) as [IMaterial, number][]) {
+    for (const [ingredient, ingredientAmount] of getObjectEntries<
+      IMaterial,
+      number
+    >(ingredients)) {
       tree.ingredients![ingredient] = getMatTree(
         ingredient,
         amount * ingredientAmount,
+        level + 1,
       );
     }
   }
@@ -27,17 +31,29 @@ export const getMatTree = (mat: IMaterial, amount = 1): IMatTree => {
   return tree;
 };
 
-export type IMats = IPartialRecord<IMaterial, number>;
+export interface IMatsItem {
+  levels: Set<number>;
+  amount: number;
+}
+
+export type IMats = IPartialRecord<IMaterial, IMatsItem>;
 
 export const getMatsFromMatTree = (
   matTree: IMatTree,
   mats: IMats = {},
 ): IMats => {
   if (matTree.ingredients) {
-    for (const [ingredient, ingredientTree] of Object.entries(
-      matTree.ingredients,
-    ) as [IMaterial, IMatTree][]) {
-      mats[ingredient] = (mats[ingredient] ?? 0) + ingredientTree.amount;
+    for (const [ingredient, ingredientTree] of getObjectEntries<
+      IMaterial,
+      IMatTree
+    >(matTree.ingredients)) {
+      mats[ingredient] = {
+        levels: new Set([
+          ...(mats[ingredient]?.levels ?? []),
+          ingredientTree.level,
+        ]),
+        amount: (mats[ingredient]?.amount ?? 0) + ingredientTree.amount,
+      };
 
       getMatsFromMatTree(ingredientTree, mats);
     }
@@ -48,7 +64,7 @@ export const getMatsFromMatTree = (
 
 export const sortMats = (mats: IMats): IMats =>
   Object.fromEntries(
-    (Object.entries(mats) as [IMaterial, number][]).sort(([a], [b]) => {
+    getObjectEntries<IMaterial, IMatsItem>(mats).sort(([a], [b]) => {
       const aMeta = getMeta(a);
       const bMeta = getMeta(b);
 
