@@ -179,7 +179,7 @@ export const MATERIALS = [
   ...new Set(
     Object.values(RECIPES).reduce(
       (res, cur) => [...res, ...Object.keys(cur)],
-      [],
+      [] as string[],
     ),
   ),
 ] as IMaterial[];

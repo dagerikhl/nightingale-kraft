@@ -2,6 +2,7 @@ import {
   IMaterial,
   IMaterialNonRaw,
   IMaterialRaw,
+  MATERIALS_NON_RAW,
   MATERIALS_RAW,
 } from "../recipes/recipes";
 
@@ -56,8 +57,8 @@ const MATERIAL_BENCH_MAP: Record<IMaterialNonRaw, IMaterialBench> = {
   Wire: "Smelter",
 };
 
-export const getMetaBench = (mat: IMaterial): IMaterialBench =>
-  MATERIAL_BENCH_MAP[mat];
+export const getMetaBench = (mat: IMaterial): IMaterialBench | undefined =>
+  checkIsRaw(mat) ? undefined : MATERIAL_BENCH_MAP[mat];
 
 export type IMaterialType = "Gear" | "Ingredient" | "ToolOrWeapon";
 
@@ -75,9 +76,11 @@ export const getMetaType = (mat: IMaterial): IMaterialType => {
 
 export const checkIsRaw = (mat: IMaterial): mat is IMaterialRaw =>
   MATERIALS_RAW.includes(mat);
+export const checkIsNonRaw = (mat: IMaterial): mat is IMaterialNonRaw =>
+  MATERIALS_NON_RAW.includes(mat as IMaterialNonRaw);
 
 export interface IMeta {
-  bench: IMaterialBench;
+  bench?: IMaterialBench;
   type: IMaterialType;
   isRaw: boolean;
 }
