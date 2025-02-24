@@ -70,13 +70,17 @@ export const sortMats = (mats: IMats): IMats =>
         const bMeta = getMeta(bMat);
 
         if (aMeta.bench === bMeta.bench) {
+          if (!aMeta.bench && !bMeta.bench) {
+            return aMat.localeCompare(bMat);
+          }
+
           if (bItem.parents.includes(aMat)) {
             return -1;
           } else if (aItem.parents.includes(bMat)) {
             return 1;
           }
 
-          return aMat.localeCompare(bMat);
+          return 0;
         } else {
           return (aMeta.bench ?? "ZZZ").localeCompare(bMeta.bench ?? "ZZZ");
         }
