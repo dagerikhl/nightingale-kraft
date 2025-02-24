@@ -1,3 +1,4 @@
+import c from "chalk";
 import { getObjectEntries } from "./common/utils/objects";
 import {
   getMatsFromMatTree,
@@ -23,18 +24,29 @@ export const run = (recipeNames: IMaterialNonRaw[]) => {
     console.log(formatMatTree(matTree));
 
     const mats = sortMats(getMatsFromMatTree(matTree));
-    console.log(` All materials:\n${formatMats(mats, [recipeName])}`);
+    console.log(
+      [c.bold(` All materials:`), `${formatMats(mats, [recipeName])}`].join(
+        "\n",
+      ),
+    );
 
-    for (const [mat, items] of getObjectEntries<IMaterial, IMatsItem>(mats)) {
+    for (const [mat, item] of getObjectEntries<IMaterial, IMatsItem>(mats)) {
       allMats[mat] = {
-        levels: new Set([...(allMats[mat]?.levels ?? []), ...items.levels]),
-        amount: (allMats[mat]?.amount ?? 0) + items.amount,
+        parents: [...(allMats[mat]?.parents ?? []), ...item.parents],
+        levels: [...(allMats[mat]?.levels ?? []), ...item.levels],
+        amount: (allMats[mat]?.amount ?? 0) + item.amount,
       };
     }
   }
 
   const allMatsSorted = sortMats(allMats);
   console.log(
-    `\n All materials for all recipes:\n${formatMats(allMatsSorted, recipeNames)}`,
+    [
+      "",
+      c.bold(
+        ` All materials for all recipes ${c.yellow(`[${recipeNames.join(",")}]`)}:`,
+      ),
+      formatMats(allMatsSorted, recipeNames),
+    ].join("\n"),
   );
 };

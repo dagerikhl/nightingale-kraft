@@ -4,13 +4,14 @@ import { checkIsNonRaw, getMeta } from "../meta/meta";
 import { IMaterial, RECIPES } from "../recipes/recipes";
 
 export interface IMatTree {
+  parent: IMaterial;
   level: number;
   amount: number;
   ingredients?: IPartialRecord<IMaterial, IMatTree>;
 }
 
 export const getMatTree = (mat: IMaterial, amount = 1, level = 0): IMatTree => {
-  const tree: IMatTree = { level, amount };
+  const tree: IMatTree = { parent: mat, level, amount };
 
   if (checkIsNonRaw(mat)) {
     const ingredients = RECIPES[mat];
@@ -32,7 +33,8 @@ export const getMatTree = (mat: IMaterial, amount = 1, level = 0): IMatTree => {
 };
 
 export interface IMatsItem {
-  levels: Set<number>;
+  parents: IMaterial[];
+  levels: number[];
   amount: number;
 }
 
@@ -48,10 +50,8 @@ export const getMatsFromMatTree = (
       IMatTree
     >(matTree.ingredients)) {
       mats[ingredient] = {
-        levels: new Set([
-          ...(mats[ingredient]?.levels ?? []),
-          ingredientTree.level,
-        ]),
+        parents: [...(mats[ingredient]?.parents ?? []), matTree.parent],
+        levels: [...(mats[ingredient]?.levels ?? []), ingredientTree.level],
         amount: (mats[ingredient]?.amount ?? 0) + ingredientTree.amount,
       };
 
@@ -64,14 +64,22 @@ export const getMatsFromMatTree = (
 
 export const sortMats = (mats: IMats): IMats =>
   Object.fromEntries(
-    getObjectEntries<IMaterial, IMatsItem>(mats).sort(([a], [b]) => {
-      const aMeta = getMeta(a);
-      const bMeta = getMeta(b);
+    getObjectEntries<IMaterial, IMatsItem>(mats).sort(
+      ([aMat, aItem], [bMat, bItem]) => {
+        const aMeta = getMeta(aMat);
+        const bMeta = getMeta(bMat);
 
-      if (aMeta.bench === bMeta.bench) {
-        return a.localeCompare(b);
-      } else {
-        return (aMeta.bench ?? "ZZZ").localeCompare(bMeta.bench ?? "ZZZ");
-      }
-    }),
+        if (aMeta.bench === bMeta.bench) {
+          if (bItem.parents.includes(aMat)) {
+            return -1;
+          } else if (aItem.parents.includes(bMat)) {
+            return 1;
+          }
+
+          return aMat.localeCompare(bMat);
+        } else {
+          return (aMeta.bench ?? "ZZZ").localeCompare(bMeta.bench ?? "ZZZ");
+        }
+      },
+    ),
   );

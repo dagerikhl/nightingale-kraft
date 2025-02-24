@@ -5,8 +5,9 @@ import { getMeta } from "../meta/meta";
 import { IMaterial, IMaterialNonRaw, RECIPES } from "../recipes/recipes";
 
 const WIDTHS = {
-  Name: 40,
+  Name: 30,
   Bench: 20,
+  Parent: 30,
   Type: 15,
 };
 
@@ -26,6 +27,7 @@ export const formatMaterial = (
   mat: IMaterial,
   amount = 1,
   indent = 0,
+  parents?: IMaterial[],
 ): string => {
   const meta = getMeta(mat);
 
@@ -35,9 +37,18 @@ export const formatMaterial = (
 
   strs.push((meta?.bench ?? "").padEnd(WIDTHS.Bench));
 
-  strs.push((meta.type === "Ingredient" ? "" : meta.type).padEnd(WIDTHS.Type));
+  const parentStr =
+    parents && parents.length > 0 ? `^ ${parents.join(",")}` : "";
+  const typeStr = meta.type === "Ingredient" ? "" : meta.type;
 
-  let str = `${SPACE}${strs.join(SPACE)}${SPACE}`;
+  if (typeStr) {
+    strs.push(parentStr.padEnd(WIDTHS.Parent));
+    strs.push(typeStr.padEnd(WIDTHS.Type));
+  } else {
+    strs.push(parentStr.padEnd(WIDTHS.Parent + WIDTHS.Type));
+  }
+
+  let str = `${SPACE}${strs.join(SPACE)}`;
 
   if (meta.isRaw) {
     str = c.green(str);
@@ -46,8 +57,8 @@ export const formatMaterial = (
   if (indent === 0) {
     return [
       "",
-      c.yellow(str),
-      c.yellow(`${SPACE}${LINE.repeat(TOTAL_WIDTH)}${SPACE}`),
+      c.yellow.bold(str),
+      c.yellow.bold(`${SPACE}${LINE.repeat(TOTAL_WIDTH)}`),
     ].join("\n");
   }
 
@@ -66,9 +77,10 @@ export const formatMatTree = (matTree: IMatTree): string => {
         ingredient,
         ingredientTree.amount,
         ingredientTree.level,
+        [matTree.parent],
       );
       if (ingredientTree.level === 1) {
-        formattedIngredient = c.cyan(formattedIngredient);
+        formattedIngredient = c.cyanBright(formattedIngredient);
       }
       strs.push(formattedIngredient);
 
@@ -92,13 +104,25 @@ export const formatMats = (
 
   const strs: string[] = [];
 
+  let prevs: { mat: IMaterial; level: number }[] = [];
+  let level = 1;
   for (const [mat, item] of getObjectEntries<IMaterial, IMatsItem>(mats)) {
-    let formattedMat = formatMaterial(mat, item.amount, 1);
+    if (
+      prevs.length > 0 &&
+      getMeta(mat).bench !== getMeta(prevs[prevs.length - 1].mat).bench
+    ) {
+      prevs = [];
+    }
+    const parent = prevs.find(({ mat }) => item.parents.includes(mat));
+    level = (parent?.level ?? 0) + 1;
+    prevs.push({ mat, level });
+
+    let formattedMat = formatMaterial(mat, item.amount, level, item.parents);
     if (originalIngredients?.includes(mat)) {
-      if (item.levels.size > 1) {
-        formattedMat = c.cyanBright(formattedMat);
-      } else {
+      if (item.levels.find((x) => x !== 1)) {
         formattedMat = c.cyan(formattedMat);
+      } else {
+        formattedMat = c.cyanBright(formattedMat);
       }
     }
     strs.push(formattedMat);
