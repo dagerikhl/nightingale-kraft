@@ -96,12 +96,23 @@ export const RECIPES = {
   Straps: {
     Hide: 1,
   },
+  WranglerBackpack: {
+    ReinforcedLeather: 2,
+    Lining: 4,
+    Ornament: 1,
+  },
 
   HermeticsFormalShirt: {
     DurableCloth: 2,
     Lining: 2,
     Buttons: 2,
     Thread: 2,
+  },
+  WranglerShirt: {
+    DurableCloth: 2,
+    Lining: 2,
+    Buttons: 2,
+    Buckles: 1,
   },
 
   PorterPistol: {

@@ -55,6 +55,8 @@ const MATERIAL_BENCH_MAP: Record<IMaterialNonRaw, IMaterialBench> = {
   Straps: "Tanning",
   Thread: "Textile",
   Wire: "Smelter",
+  WranglerBackpack: "Sewing",
+  WranglerShirt: "Sewing",
 };
 
 export const getMetaBench = (mat: IMaterial): IMaterialBench | undefined =>

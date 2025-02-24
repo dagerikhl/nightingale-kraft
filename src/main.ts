@@ -10,8 +10,10 @@ const main = () => {
     "SentinelsCoat",
     "SentinelsGloves",
     "MagickianTophat",
-    "ExplorersPack",
-    "HermeticsFormalShirt",
+    // "ExplorersPack", // BETTER ALTERNATIVE AVAILABLE
+    "WranglerBackpack",
+    // "HermeticsFormalShirt", // BETTER ALTERNATIVE AVAILABLE
+    "WranglerShirt",
 
     // Tools:
 
