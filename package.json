@@ -10,6 +10,7 @@
     "prepare": "husky",
     "start": "npx tsx src/main.ts",
     "dev": "nodemon --exec \"npx tsx src/main.ts \" --watch src/ -e js,md,ts",
+    "check": "tsc --noEmit",
     "format": "prettier .",
     "format:fix": "prettier . --write"
   },
