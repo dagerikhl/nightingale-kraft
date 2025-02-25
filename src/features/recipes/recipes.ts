@@ -1,6 +1,8 @@
 import { IKeysOfUnion } from "../../common/types/IKeysOfUnion";
 
 export const RECIPES = {
+  // Gear
+
   SentinelsBoots: {
     ReinforcedLeather: 2,
     Buckles: 2,
@@ -115,6 +117,8 @@ export const RECIPES = {
     Buckles: 1,
   },
 
+  // Weapons
+
   PorterPistol: {
     Barrel: 1,
     Filigree: 1,
@@ -151,6 +155,28 @@ export const RECIPES = {
   MechanicalGears: {
     Ingot: 2,
   },
+
+  MysticSword: {
+    GildedBlade: 1,
+    Guard: 1,
+    Hilt: 1,
+    CutGem: 1,
+  },
+  GildedBlade: {
+    Blade: 1,
+    PreciousMetalIngot: 1,
+  },
+  Blade: {
+    MetalPlate: 1,
+  },
+  Guard: {
+    Shaft: 1,
+  },
+  Hilt: {
+    Ingot: 1,
+  },
+
+  // Tools
 
   MysticLantern: {
     MouldedGlass: 1,

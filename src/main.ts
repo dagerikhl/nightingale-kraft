@@ -15,14 +15,15 @@ const main = () => {
     // "HermeticsFormalShirt", // BETTER ALTERNATIVE AVAILABLE
     "WranglerShirt",
 
+    // Weapons:
+
+    "MysticSword",
+    "PorterPistol",
+
     // Tools:
 
     "MysticLantern",
     "MysticUmbrellaGlider",
-
-    // Weapons:
-
-    "PorterPistol",
   ];
 
   run(recipeNames);
