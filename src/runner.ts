@@ -15,6 +15,12 @@ import {
 import { IMaterial, IMaterialNonRaw } from "./features/recipes/recipes";
 
 export const run = (recipeNames: IMaterialNonRaw[]) => {
+  if (recipeNames.length === 0) {
+    console.log(c.red("No recipe names provided, exiting."));
+
+    return;
+  }
+
   const allMats: IMats = {};
 
   for (const recipeName of recipeNames) {
