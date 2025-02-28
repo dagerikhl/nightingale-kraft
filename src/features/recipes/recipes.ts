@@ -176,6 +176,38 @@ export const RECIPES = {
     Ingot: 1,
   },
 
+  MysticExplosiveGrenadeSatchel: {
+    PreciousMetalIngot: 2,
+    Gunpowder: 6,
+    Wick: 1,
+    EtchedAlloyIngot: 2,
+  },
+  Wick: {
+    Twine: 2,
+  },
+  Twine: {
+    Fibre: 2,
+  },
+
+  MysticMaul: {
+    ReinforcedHammerhead: 1,
+    Handle: 1,
+    Filigree: 1,
+    CutGem: 1,
+  },
+  ReinforcedHammerhead: {
+    Hammerhead: 1,
+    AlloyIngot: 1,
+  },
+  Hammerhead: {
+    Ingot: 1,
+  },
+
+  MysticThrowingKnifeSheath: {
+    GildedBlade: 2,
+    DurableCloth: 2,
+  },
+
   // Tools
 
   MysticLantern: {
