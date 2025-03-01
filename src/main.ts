@@ -25,7 +25,9 @@ const main = () => {
 
     // Tools:
 
+    "MysticClimbingPicks",
     "MysticLantern",
+    "MysticSpyglass",
     "MysticUmbrellaGlider",
   ];
 

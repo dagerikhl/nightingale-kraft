@@ -233,6 +233,41 @@ export const RECIPES = {
     Wire: 1,
     CutGem: 1,
   },
+
+  MysticClimbingPicks: {
+    ArtisanalPickHead: 2,
+    Handle: 1,
+    Ornament: 1,
+    CutGem: 1,
+  },
+  ArtisanalPickHead: {
+    PickHead: 1,
+    Filigree: 1,
+  },
+  PickHead: {
+    Ingot: 1,
+    MetalTip: 1,
+  },
+  MetalTip: {
+    Ingot: 1,
+  },
+
+  MysticSpyglass: {
+    Lens: 1,
+    Grip: 1,
+    Filigree: 1,
+    CutGem: 1,
+  },
+  Lens: {
+    Glass: 2,
+  },
+  Grip: {
+    Hide: 1,
+    Wrap: 1,
+  },
+  Wrap: {
+    Straps: 2,
+  },
 };
 
 type IRecipes = typeof RECIPES;
