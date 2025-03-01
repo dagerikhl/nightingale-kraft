@@ -45,6 +45,10 @@ export const run = (recipeNames: IMaterialNonRaw[]) => {
     }
   }
 
+  if (recipeNames.length === 1) {
+    return;
+  }
+
   const allMatsSorted = sortMats(allMats);
   console.log(
     [
