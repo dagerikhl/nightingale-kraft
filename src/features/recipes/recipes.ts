@@ -310,6 +310,40 @@ export const RECIPES = {
     Hilt: 1,
     CutGem: 1,
   },
+
+  MysticAxepick: {
+    ArtisanalPickHead: 1,
+    ArtisanalAxeHead: 1,
+    Handle: 1,
+    CutGem: 1,
+  },
+
+  MysticFishingRod: {
+    Pole: 1,
+    Line: 1,
+    Filigree: 1,
+    CutGem: 1,
+  },
+  Line: {
+    Fibre: 2,
+  },
+
+  MysticHammer: {
+    ReinforcedHammerhead: 1,
+    Handle: 1,
+    CounterBalance: 1,
+    CutGem: 1,
+  },
+
+  MysticWateringCan: {
+    Reservoir: 1,
+    Handle: 1,
+    Filigree: 1,
+    CutGem: 1,
+  },
+  Reservoir: {
+    Ingot: 1,
+  },
 };
 
 type IRecipes = typeof RECIPES;

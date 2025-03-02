@@ -25,13 +25,17 @@ const main = () => {
 
     // Tools:
 
+    "MysticAxepick",
     "MysticClimbingPicks",
+    "MysticFishingRod",
+    "MysticHammer",
     "MysticHuntingKnife",
     "MysticMiningPick",
     "MysticLantern",
     "MysticSickle",
     "MysticSpyglass",
     "MysticUmbrellaGlider",
+    "MysticWateringCan",
     "MysticWoodAxe",
   ];
 
