@@ -26,9 +26,13 @@ const main = () => {
     // Tools:
 
     "MysticClimbingPicks",
+    "MysticHuntingKnife",
+    "MysticMiningPick",
     "MysticLantern",
+    "MysticSickle",
     "MysticSpyglass",
     "MysticUmbrellaGlider",
+    "MysticWoodAxe",
   ];
 
   run(recipeNames);

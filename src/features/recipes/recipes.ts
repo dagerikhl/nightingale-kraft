@@ -268,6 +268,48 @@ export const RECIPES = {
   Wrap: {
     Straps: 2,
   },
+
+  MysticSickle: {
+    GildedBlade: 1,
+    Handle: 1,
+    Filigree: 1,
+    CutGem: 1,
+  },
+
+  MysticWoodAxe: {
+    ArtisanalAxeHead: 1,
+    Handle: 1,
+    Hilt: 1,
+    CutGem: 1,
+  },
+  ArtisanalAxeHead: {
+    AxeHead: 1,
+    Filigree: 1,
+  },
+  AxeHead: {
+    Ingot: 1,
+    Blade: 1,
+  },
+
+  MysticMiningPick: {
+    ArtisanalPickHead: 1,
+    Handle: 1,
+    CounterBalance: 1,
+    CutGem: 1,
+  },
+  CounterBalance: {
+    CarvedStone: 2,
+  },
+  CarvedStone: {
+    StoneBlock: 2,
+  },
+
+  MysticHuntingKnife: {
+    GildedBlade: 1,
+    Guard: 1,
+    Hilt: 1,
+    CutGem: 1,
+  },
 };
 
 type IRecipes = typeof RECIPES;
