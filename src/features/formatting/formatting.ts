@@ -37,8 +37,9 @@ export const formatMaterial = (
 
   strs.push((meta?.bench ?? "").padEnd(WIDTHS.Bench));
 
+  const uniqueParents = [...new Set(parents ?? [])];
   const parentStr =
-    parents && parents.length > 0 ? `^ ${parents.join(",")}` : "";
+    uniqueParents.length > 0 ? `^ ${uniqueParents.join(",")}` : "";
   const typeStr = meta.type === "Ingredient" ? "" : meta.type;
 
   if (typeStr) {
