@@ -19,6 +19,7 @@ const main = () => {
 
     "MysticExplosiveGrenadeSatchel",
     "MysticMaul",
+    "MysticSlingbow",
     "MysticSword",
     "MysticThrowingKnifeSheath",
     "PorterPistol",

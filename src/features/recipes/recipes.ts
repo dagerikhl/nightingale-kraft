@@ -208,6 +208,16 @@ export const RECIPES = {
     DurableCloth: 2,
   },
 
+  MysticSlingbow: {
+    Handle: 1,
+    Filigree: 1,
+    Rope: 1,
+    CutGem: 1,
+  },
+  Rope: {
+    Thread: 2,
+  },
+
   // Tools
 
   MysticLantern: {
