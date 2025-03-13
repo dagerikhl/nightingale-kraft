@@ -20,7 +20,8 @@ const main = () => {
     "MysticExplosiveGrenadeSatchel",
     "MysticMaul",
     "MysticSlingbow",
-    "MysticSword",
+    // "MysticSword", // BETTER ALTERNATIVE AVAILABLE
+    "MasterworkSword",
     "MysticThrowingKnifeSheath",
     "PorterPistol",
 

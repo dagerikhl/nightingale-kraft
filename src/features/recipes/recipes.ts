@@ -218,6 +218,21 @@ export const RECIPES = {
     Thread: 2,
   },
 
+  MasterworkSword: {
+    MasterworkToolhead: 1,
+    Guard: 1,
+    MasterworkHandle: 1,
+    CutGem: 2,
+  },
+  MasterworkToolhead: {
+    CutGem: 2,
+    AnyToolheadOrBlade: 2,
+  },
+  MasterworkHandle: {
+    Gem: 4,
+    Handle: 2,
+  },
+
   // Tools
 
   MysticLantern: {
